@@ -2,11 +2,13 @@ version: '1.0'
 steps:
 
     build-step:
+        description: Building the image.
         type: build
         dockerfile: Dockerfile
         image-name: advance512demo/demochat
         tag: codefresh
     unit-test-via-gulp:
+      description: Running unit test via gulp.
       image: monostream/nodejs-gulp-bower:latest
       fail-fast: false
       working-directory : ${{initial-clone}}
@@ -15,16 +17,19 @@ steps:
         - gulp test
         - echo $(date)
     unit-test-via-npm:
+      description: Running unit test via npm.
       image: ${{build-step}}
       fail-fast: false
       commands:
         - npm test
         - echo $(date)
     push-step:
+        description: Pushing image to Docker hub.
         type: push
         candidate: ${{build-step}}
         tag: ${{CF_BRANCH}}        
     composition-step:
+      description: Attempting to run as part of composition.
       type: composition
       composition: demochat-example
       composition-candidates:
