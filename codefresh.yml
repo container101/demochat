@@ -1,8 +1,16 @@
 version: '1.0'
 steps:
 
-
- unit-tests:
+    build-step:
+        type: build
+        dockerfile: Dockerfile
+        image-name: advance512-demo/demochat
+        tag: codefresh
+    push-step:
+        type: push
+        candidate: ${{build-step}}
+        tag: ${{CF_BRANCH}}
+    unit-test-via-gulp:
       image: monostream/nodejs-gulp-bower:latest
       fail-fast: false
       working-directory : ${{initial-clone}}
@@ -10,18 +18,20 @@ steps:
         - npm install
         - gulp test
         - echo $(date)
+    unit-test-via-npm:
+      image: ${{build-step}}
+      fail-fast: false
+      commands:
+        - npm test
+        - echo $(date)
+    composition-step:
+      type: composition
+      composition: demochat-example
+      composition-candidates:
+        main:
+          image: nhoag/curl
+          command: bash -c "sleep 20 && curl http://app:5000/" | echo 'works'
 
-
- build-step:
-     type: build
-     dockerfile: Dockerfile_prod
-     image-name: containers101/demochat
-     tag: ${{CF_BRANCH}}
-
- push to registry:
-     type: push
-     candidate: ${{build-step}}
-     tag: ${{CF_BRANCH}}
 
 
 
