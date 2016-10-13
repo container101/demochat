@@ -38,6 +38,8 @@ steps:
             image: 'advance512demo/demochat:master'
             ports:
               - 5000
+            depends_on:
+              - mongo
           mongo:
             image: mongo
       composition-candidates:
@@ -54,6 +56,8 @@ steps:
             image: 'advance512demo/demochat:master'
             ports:
               - 5000
+            depends_on:
+              - mongo
           mongo:
             image: mongo
       composition-candidates:
