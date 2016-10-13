@@ -6,10 +6,6 @@ steps:
         dockerfile: Dockerfile
         image-name: advance512-demo/demochat
         tag: codefresh
-    push-step:
-        type: push
-        candidate: ${{build-step}}
-        tag: ${{CF_BRANCH}}
     unit-test-via-gulp:
       image: monostream/nodejs-gulp-bower:latest
       fail-fast: false
@@ -24,6 +20,10 @@ steps:
       commands:
         - npm test
         - echo $(date)
+    push-step:
+        type: push
+        candidate: ${{build-step}}
+        tag: ${{CF_BRANCH}}        
     composition-step:
       type: composition
       composition: demochat-example
