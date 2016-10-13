@@ -34,7 +34,7 @@ steps:
       composition: 
         version: '2'
         services:
-          demochat:
+          app:
             image: 'advance512demo/demochat:master'
             ports:
               - 5000
