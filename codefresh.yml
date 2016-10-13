@@ -31,7 +31,15 @@ steps:
     composition-step:
       description: Attempting to run as part of composition.
       type: composition
-      composition: demochat-example
+      composition: 
+        version: '2'
+        services:
+          demochat:
+            image: 'advance512demo/demochat:master'
+            ports:
+              - 5000
+          mongo:
+            image: mongo
       composition-candidates:
         main:
           image: nhoag/curl
