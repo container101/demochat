@@ -4,7 +4,7 @@ steps:
     build-step:
         type: build
         dockerfile: Dockerfile
-        image-name: advance512-demo/demochat
+        image-name: advance512demo/demochat
         tag: codefresh
     unit-test-via-gulp:
       image: monostream/nodejs-gulp-bower:latest
