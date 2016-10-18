@@ -46,29 +46,5 @@ steps:
         main:
           image: nhoag/curl
           command: bash -c "sleep 20 && curl http://app:5000/" | echo 'works'
-    stuck-composition-step:
-      description: A composition step that will get "stuck".
-      type: composition
-      composition: 
-        version: '2'
-        services:
-          app:
-            image: 'advance512demo/demochat:master'
-            ports:
-              - 5000
-            depends_on:
-              - mongo
-          mongo:
-            image: mongo
-      composition-candidates:
-        main:
-          image: nhoag/curl
-          command: bash -c "sleep 2000 && curl http://app:5000/" | echo 'works'
-
-
-
-
-
-
 
 
