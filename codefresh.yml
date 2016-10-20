@@ -23,11 +23,6 @@ steps:
       commands:
         - npm test
         - echo $(date)
-    push-step:
-        description: Pushing image to Docker hub.
-        type: push
-        candidate: ${{build-step}}
-        tag: ${{CF_BRANCH}}        
     composition-step:
       description: Attempting to run as part of composition.
       type: composition
@@ -47,4 +42,9 @@ steps:
           image: nhoag/curl
           command: bash -c "sleep 20 && curl http://app:5000/" | echo 'works'
 
+    push-step:
+        description: Pushing image to Docker hub.
+        type: push
+        candidate: ${{build-step}}
+        tag: ${{CF_BRANCH}}        
 
